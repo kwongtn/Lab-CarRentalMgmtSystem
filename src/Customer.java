@@ -2,9 +2,8 @@ public class Customer{
     int customerID;
     String name;
     String licenseNo;
-    String address;
     String phoneNo;
-    boolean verified;
+    boolean isVerified;
     String userID;
     String password;
 }

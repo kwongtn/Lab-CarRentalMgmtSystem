@@ -4,5 +4,7 @@ public class Car{
     String plateNo;
     int capacity;
     double rentalRate;
+    boolean isAuto;
+    boolean isUsable;
 }
 
