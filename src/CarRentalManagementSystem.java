@@ -46,5 +46,7 @@ public class CarRentalManagementSystem{
         }
 
         carManager.displayCars();
+        carManager.searchCarByID(1003);
+        carManager.searchCarsByMaxPrice(100);
     }
 }
