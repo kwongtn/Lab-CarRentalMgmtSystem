@@ -48,14 +48,14 @@ public class CarManager{
             Car car = cars[i];
 
             System.out.println("========================================");
-            System.out.println("Car ID: " + car.carID);
-            System.out.println("Plate No.: " + car.plateNo);
-            System.out.println("Model:" + car.model);
-            System.out.println("Price: RM " + car.price);
-            System.out.println("Is Auto:" + car.isAuto);
-            System.out.println("Is Usable:" + car.isUsable);
-            System.out.println("Capacity:" + car.capacity);
-
+            System.out.println("Car ID: " + car.getCarID());
+            System.out.println("Plate No.: " + car.getPlateNo());
+            System.out.println("Model:" + car.getModel());
+            System.out.println("Price: RM " + car.getPrice());
+            System.out.println("Is Auto:" + car.isAuto());
+            System.out.println("Is Usable:" + car.isUsable());
+            System.out.println("Capacity:" + car.getCapacity());
+            System.out.println();
         }
     }
 }

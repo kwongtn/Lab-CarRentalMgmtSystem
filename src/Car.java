@@ -43,7 +43,7 @@ public class Car{
     public boolean isAuto(){
         return auto;
     }
-    public void setAuto(bool auto){
+    public void setAuto(boolean auto){
         this.auto = auto;
     }
 
@@ -60,7 +60,7 @@ public class Car{
         return capacity;
     }
     public void setCapacity(int capacity){
-        tis.capacity = capacity;
+        this.capacity = capacity;
     }
 }
 

@@ -17,18 +17,18 @@ public class Rental{
     }
 
     // Getter & Setter for car
-    public int getcar(){
+    public Car getcar(){
         return car;
     }
-    public void setcar(int car) {
+    public void setcar(Car car) {
         this.car = car;
     }
 
     // Getter & Setter for customer
-    public int getcustomer() {
+    public Customer getcustomer() {
         return customer;
     }
-    public void setcustomer(int customer) {
+    public void setcustomer(Customer customer) {
         this.customer = customer;
     }
 
