@@ -1,7 +1,7 @@
 public class Rental{
     private int rentalID;
-    private int carID;
-    private int customerID;
+    Car car;
+    Customer customer;
     private int contractualDuration;
     private long start;
     private long end;
@@ -16,20 +16,20 @@ public class Rental{
         this.rentalID = rentalID;
     }
 
-    // Getter & Setter for carID
-    public int getCarID(){
-        return carID;
+    // Getter & Setter for car
+    public int getcar(){
+        return car;
     }
-    public void setCarID(int carID) {
-        this.carID = carID;
+    public void setcar(int car) {
+        this.car = car;
     }
 
-    // Getter & Setter for customerID
-    public int getCustomerID() {
-        return customerID;
+    // Getter & Setter for customer
+    public int getcustomer() {
+        return customer;
     }
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setcustomer(int customer) {
+        this.customer = customer;
     }
 
     // Getter & Setter for contractualDuration
@@ -37,7 +37,10 @@ public class Rental{
         return contractualDuration;
     }
     public void setContractualDuration(int contractualDuration){
-        this.contractualDuration = contractualDuration;
+        if (contractualDuration > 0){
+            this.contractualDuration = contractualDuration;
+            this.total = contractualDuration * car.getPrice();
+        }
     }
 
     // Getter & Setter for start
@@ -59,9 +62,6 @@ public class Rental{
     // Getter & Setter for total
     public double getTotal() {
         return total;
-    }
-    public void setTotal(double total) {
-        this.total = total;
     }
 
     // Getter & Setter for deposit
