@@ -15,9 +15,6 @@ public class CarManager{
             cars[count++] = car;
             status = count;
         }
-
-        
-        
         
         return status;
     }
@@ -34,11 +31,11 @@ public class CarManager{
         return null;
     }
 
-    Car[] searchByMinPrice(double rentalRate){
+    Car[] searchByMinPrice(double price){
         return null;
     }
 
-    Car[] searchByMaxPrice(double rentalRate){
+    Car[] searchByMaxPrice(double price){
         return null;
     }
 
@@ -54,7 +51,7 @@ public class CarManager{
             System.out.println("Car ID: " + car.carID);
             System.out.println("Plate No.: " + car.plateNo);
             System.out.println("Model:" + car.model);
-            System.out.println("Price: RM " + car.rentalRate);
+            System.out.println("Price: RM " + car.price);
             System.out.println("Is Auto:" + car.isAuto);
             System.out.println("Is Usable:" + car.isUsable);
             System.out.println("Capacity:" + car.capacity);

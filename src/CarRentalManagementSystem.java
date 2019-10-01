@@ -9,7 +9,7 @@ public class CarRentalManagementSystem{
         car1.isAuto = false;
         car1.isUsable = true;
         car1.capacity = 4;
-        car1.rentalRate = 5;
+        car1.price = 5;
 
         Car car2 = new Car();
         car2.carID = 1003;
@@ -18,7 +18,7 @@ public class CarRentalManagementSystem{
         car2.isAuto = true;
         car2.isUsable = true;
         car2.capacity = 6;
-        car2.rentalRate = 10;
+        car2.price = 10;
 
         Car car3 = new Car();
         car3.carID = 1005;
@@ -27,7 +27,7 @@ public class CarRentalManagementSystem{
         car3.isAuto = false;
         car3.isUsable = true;
         car3.capacity = 4;
-        car3.rentalRate = 8;
+        car3.price = 8;
 
         if (carManager.addCar(car1) != 0){
             System.out.println("Car Added");
