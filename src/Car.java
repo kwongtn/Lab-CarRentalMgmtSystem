@@ -1,5 +1,4 @@
-public class Car{
-    private int carID;
+public class Car extends Model{
     private String plateNo;
     private String model;
     private double price;
@@ -9,10 +8,10 @@ public class Car{
 
     // Getter & Setter for carID
     public int getCarID(){
-        return carID;
+        return uniqueID;
     }
     public Car(int carID){
-        this.carID = carID;
+        super(carID);
     }
 
     // Getter & Setter for plateNo

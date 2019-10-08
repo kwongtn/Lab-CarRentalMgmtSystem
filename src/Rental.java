@@ -1,7 +1,6 @@
-public class Rental{
-    private int rentalID;
-    Car car;
-    Customer customer;
+public class Rental extends Model{
+    private Car car;
+    private Customer customer;
     private int contractualDuration;
     private long start;
     private long end;
@@ -10,10 +9,10 @@ public class Rental{
 
     // Getter & Setter for rentalID
     public int getRentalID(){
-        return rentalID;
+        return uniqueID;
     }
-    public void setRentalID(int rentalID){
-        this.rentalID = rentalID;
+    public Rental(int rentalID){
+        super(rentalID);
     }
 
     // Getter & Setter for car

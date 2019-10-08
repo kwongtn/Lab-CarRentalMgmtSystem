@@ -1,5 +1,4 @@
-public class Customer{
-    private int customerID;
+public class Customer extends Model{
     private String name;
     private String licenseNo;
     private String phoneNo;
@@ -8,11 +7,11 @@ public class Customer{
     private String password;
 
     // Getter & Setter for customerID
-    public int getCustomerID(){
-        return customerID;
+    public Customer(int customerID){
+        super(customerID);
     }
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public int getCustomerID(){
+        return uniqueID;
     }
 
     // Getter & Setter for name
