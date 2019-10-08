@@ -11,7 +11,7 @@ public class Car{
     public int getCarID(){
         return carID;
     }
-    public void setCarID(int carID){
+    public Car(int carID){
         this.carID = carID;
     }
 

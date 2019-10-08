@@ -31,53 +31,51 @@ public class CarManager{
         return null;
     }
     
-    Car[] searchByMinPrice(double price){
-        return null;
-    }
-    
-    Car[] searchByMaxPrice(double price){
-        return null;
-    }
-    
-    Car searchByPlateNo(String plateNo){
-        return null;
-    }
-    
     // Display all cars
     void displayCars(){
-        for (int i = 0; i < count; i++){
-            displayCar(cars[i]);
-        }
-    }
-    
-    void searchCarByID(int carID){
-        for (int i = 0; i < count; i++){
-            if(cars[i].getCarID() == carID){
-                displayCar(cars[i]);
-            }
-        }
-    }
-
-    void searchCarsByMaxPrice(int maxPrice){
-        for (int i = 0; i < count; i++){
-            if(cars[i].getPrice() < maxPrice){
-                displayCar(cars[i]);
-            }
-        }
-    }
-
-    void searchCarsByMinCapacity(int minCapacity){
-        for (int i = 0; i < count; i++){
-            if(cars[i].getCapacity() >= minCapacity){
-                displayCar(cars[i]);
+        for (Car car : cars){
+            if(car != null){
+                displayCar(car);
             }
         }
     }
     
-    void searchCarsByTransmission(boolean transmissionSearch){
-        for (int i = 0; i < count; i++){
-            if(cars[i].isAuto() == transmissionSearch){
-                displayCar(cars[i]);
+    void displayCar(int carID){
+        for (Car car : cars){
+            if(car != null && car.getCarID() == carID){
+                displayCar(car);
+            }
+        }
+    }
+
+    void displayCars(double maxPrice){
+        for (Car car : cars){
+            if(car != null && car.getPrice() < maxPrice){
+                displayCar(car);
+            }
+        }
+    }
+
+    void displayCars(int minCapacity){
+        for (Car car : cars){
+            if(car != null && car.getCapacity() >= minCapacity){
+                displayCar(car);
+            }
+        }
+    }
+    
+    void displayCars(boolean transmissionSearch){
+        for (Car car : cars){
+            if(car != null && car.isAuto() == transmissionSearch){
+                displayCar(car);
+            }
+        }
+    }
+
+    void displayCars(String model){
+        for (Car car : cars){
+            if (car != null && car.getModel().toLowerCase().contains(model.toLowerCase())){
+                displayCar(car);
             }
         }
     }
