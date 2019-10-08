@@ -20,11 +20,37 @@ public class CarManager{
     }
 
     int updateCar(Car car){
-        return 0;
+        int index = -1;
+
+        for (int i = 0; i < cars.length; i++){
+            Car temp = cars[i];
+
+            if(temp != null && (temp.getCarID() == car.getCarID())){
+                cars[i] = car;
+                index = i;
+
+                break;
+            }
+        }
+
+        return index;
     }
 
-    int deleteCar(Car car){
-        return 0;
+    int deleteCar(int carID){
+        int index = -1;
+
+        for (int i = 0; i < cars.length; i++){
+            Car temp = cars[i];
+
+            if(temp != null && (temp.getCarID() == carID)){
+                cars[i] = null;
+                index = i;
+
+                break;
+            }
+        }
+
+        return index;
     }
     
     Car[] searchByCapacity(int capacity){
