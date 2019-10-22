@@ -1,3 +1,5 @@
+package model;
+
 public class Car extends Model{
     private String plateNo;
     private String model;

@@ -1,3 +1,5 @@
+package model;
+
 public class Rental extends Model{
     private Car car;
     private Customer customer;

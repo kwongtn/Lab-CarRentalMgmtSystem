@@ -1,3 +1,5 @@
+package model;
+
 public class Customer extends Model{
     private String name;
     private String licenseNo;

@@ -1,3 +1,5 @@
+package view;
+import java.util.Scanner;
 
 public class CarRentalManagementSystem{
     public static void main(String args[]){

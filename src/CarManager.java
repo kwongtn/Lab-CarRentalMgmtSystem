@@ -1,7 +1,9 @@
+package controller.manager;
+
+import model.Car;
 public class CarManager{
 
     private Car[] cars = new Car[5];
-    private int count;
 
     public CarManager(int length){
         cars = new Car[length];

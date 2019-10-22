@@ -1,4 +1,5 @@
-public class Model{
+package model;
+abstract class Model{
     protected int uniqueID;
 
     public Model(int uniqueID){
