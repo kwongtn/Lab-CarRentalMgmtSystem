@@ -9,14 +9,20 @@ public class CarManager{
 
 
     int addCar(Car car){
-        int status = 0;
+        int index = -1;
 
-        if(count < cars.length){
-            cars[count++] = car;
-            status = count;
+        for (int i = 0; i < cars.length; i++){
+            Car temp = cars[i];
+
+            if(temp == null && (temp.getCarID() == car.getCarID())){
+                cars[i] = car;
+                index = i;
+
+                break;
+            }
         }
-        
-        return status;
+
+        return index;
     }
 
     int updateCar(Car car){
