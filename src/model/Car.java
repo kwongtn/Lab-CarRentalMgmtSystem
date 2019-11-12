@@ -1,6 +1,7 @@
 package model;
 
 public class Car extends Model{
+	private static int LATEST_ID;
     private String plateNo;
     private String model;
     private double price;
@@ -12,8 +13,8 @@ public class Car extends Model{
     public int getCarID(){
         return uniqueID;
     }
-    public Car(int carID){
-        super(carID);
+    public Car(){
+        super(++LATEST_ID);
     }
 
     // Getter & Setter for plateNo
