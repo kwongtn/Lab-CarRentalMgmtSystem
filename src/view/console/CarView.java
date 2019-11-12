@@ -1,4 +1,4 @@
-package view;
+package view.console;
 
 import java.util.Scanner;
 import java.util.Vector;
