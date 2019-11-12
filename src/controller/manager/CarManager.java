@@ -8,22 +8,6 @@ public class CarManager{
 	private static Vector<Car> cars = new Vector<>();
 
 	public static int addCar(Car car){
-//		int index = -1;
-//
-//		for (int i = 0; i < cars.length; i++){
-//			Car temp = cars[i];
-//
-//			if(temp == null){
-//				cars[i] = car;
-//				index = i;
-//
-//				break;
-//			}
-//		}
-//
-//		return index;
-		
-		
 		return cars.add(car) ? car.getCarID() : 0;
 	}
 
@@ -61,68 +45,65 @@ public class CarManager{
 		return cars.remove(index) != null ? 1 : 0;
 	}
 
-	public static Car[] searchByCapacity(int capacity){
-		return null;
+	public static Vector<Car> getCars(){
+		return new Vector<>(cars);
 	}
-
-	// Display all cars
-	public static void displayCars(){
-		for (Car car : cars){
-			if(car != null){
-				displayCar(car);
+	
+	public static Vector<Car> getCars(double maxPrice){
+		Vector<Car> temp = new Vector<>();
+		for(Car car : cars) {
+			if(car.getPrice() < maxPrice) {
+				temp.add(car);
 			}
 		}
+		
+		return temp;
 	}
 
-	public static void displayCar(int carID){
-		for (Car car : cars){
-			if(car != null && car.getCarID() == carID){
-				displayCar(car);
+	public static Vector<Car> getCars(int minCapacity){
+		Vector<Car> temp = new Vector<>();
+		for(Car car : cars) {
+			if(car.getCapacity() < minCapacity) {
+				temp.add(car);
 			}
 		}
+		
+		return temp;
 	}
-
-	public static void displayCars(double maxPrice){
-		for (Car car : cars){
-			if(car != null && car.getPrice() < maxPrice){
-				displayCar(car);
+	
+	public static Vector<Car> getCars(boolean auto){
+		Vector<Car> temp = new Vector<>();
+		for(Car car : cars) {
+			if(car.isAuto() == auto) {
+				temp.add(car);
 			}
 		}
+		
+		return temp;
 	}
-
-	public static void displayCars(int minCapacity){
-		for (Car car : cars){
-			if(car != null && car.getCapacity() >= minCapacity){
-				displayCar(car);
+	
+	public static Vector<Car> getCars(String model){
+		Vector<Car> temp = new Vector<>();
+		for(Car car : cars) {
+			if(car != null && car.getModel().toLowerCase().contains(model.toLowerCase())) {
+				temp.add(car);
 			}
 		}
+		
+		return temp;
 	}
-
-	public static void displayCars(boolean transmissionSearch){
-		for (Car car : cars){
-			if(car != null && car.isAuto() == transmissionSearch){
-				displayCar(car);
+	
+	public static Car getCar(int carID){
+		Car temp = null;
+		
+		for(Car car : cars) {
+			if (car.getCarID() == carID) {
+				temp = car;
+				break;
 			}
 		}
+		
+		return temp;
 	}
-
-	public static void displayCars(String model){
-		for (Car car : cars){
-			if (car != null && car.getModel().toLowerCase().contains(model.toLowerCase())){
-				displayCar(car);
-			}
-		}
-	}
-
-	private static void displayCar(Car car){
-		System.out.println("========================================");
-		System.out.println("Car ID: " + car.getCarID());
-		System.out.println("Plate No.: " + car.getPlateNo());
-		System.out.println("Model:" + car.getModel());
-		System.out.println("Price: RM " + car.getPrice());
-		System.out.println("Is Auto:" + car.isAuto());
-		System.out.println("Is Usable:" + car.isUsable());
-		System.out.println("Capacity:" + car.getCapacity());
-		System.out.println();
-	}
+	
 }

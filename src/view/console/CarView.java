@@ -1,6 +1,7 @@
 package view;
 
 import java.util.Scanner;
+import java.util.Vector;
 
 import controller.manager.CarManager;
 import model.Car;
@@ -54,7 +55,23 @@ public class CarView extends View {
 				System.err.println("Unable to add a new car.");
 			}
 		} else if (choice == 4){
-			CarManager.displayCars();
+			Vector<Car> cars = CarManager.getCars();
+			
+			for(Car car : cars) {
+				displayCar(car);
+			}
 		}
+	}
+	
+	private static void displayCar(Car car){
+		System.out.println("========================================");
+		System.out.println("Car ID: " + car.getCarID());
+		System.out.println("Plate No.: " + car.getPlateNo());
+		System.out.println("Model:" + car.getModel());
+		System.out.println("Price: RM " + car.getPrice());
+		System.out.println("Is Auto:" + car.isAuto());
+		System.out.println("Is Usable:" + car.isUsable());
+		System.out.println("Capacity:" + car.getCapacity());
+		System.out.println();
 	}
 }
