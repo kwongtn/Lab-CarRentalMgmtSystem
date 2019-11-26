@@ -61,10 +61,45 @@ public class AddCarDialog extends JDialog implements ActionListener {
 		this.setLocationRelativeTo(dialog);
 		this.setVisible(true);
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		// TODO Auto-generated method stub
+		Object source = event.getSource();
 
+		if (source == btnSubmit){
+			String plateNo = null, model = null;
+
+			plateNo = Validator.validate("Plate number", txtPlateNo.getText(), true, 15);
+			Car car = new Car();
+
+			car.setPlateNo(txtPlateNo.getText());
+			car.setModel(txtModel.getText());
+			car.setPrice(Double.parseDouble(txtPrice.getText()));
+			car.setCapacity(Integer.parseInt(txtCapacity.getText()));
+			car.setAuto(chkAuto.isSelected());
+			car.setUsable(chkUsable.isSelected());
+
+			if (CarManager.addCar(car) != -1){
+				JOptionPane.showMessageDialog(this, "Car with ID " + car.getCarID() + " has been succesfully added.", "Success", JOptionPane.INFORMATION_MESSAGE);
+				reset();
+
+			} else {
+				JOptionPane.showMessageDialog(this, "Unable to add new car.", "Unsuccesful", JOptionPane.WARNING_MESSAGE);
+			}
+
+		}else if (source == btnReset){
+			reset();
+		}
+		
 	}
-
+	
+	private void reset(){
+		txtPlateNo.setText("");
+		txtModel.setText("");
+		txtPrice.setText("");
+		txtCapacity.setText("");
+		chkAuto.setSelected(false);
+		chkUsable.setSelected(true);
+		txtPlateNo.grabFocus();
+	}
 }
