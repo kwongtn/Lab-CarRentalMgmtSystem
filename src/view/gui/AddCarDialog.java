@@ -5,14 +5,25 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import controller.manager.CarManager;
+import controller.validator.InvalidNumberException;
+import controller.validator.MaximumLengthException;
+import controller.validator.MaximumNumberException;
+import controller.validator.MinimumNumberException;
+import controller.validator.RequiredFieldException;
+import controller.validator.Validator;
+import model.Car;
 
 public class AddCarDialog extends JDialog implements ActionListener {
 
@@ -29,7 +40,7 @@ public class AddCarDialog extends JDialog implements ActionListener {
 
 	public AddCarDialog(ManageCarsDialog dialog) {
 		super(dialog, "Add Car", true);
-		
+
 		JPanel pnlCenter = new JPanel(new GridLayout(6, 2, 10, 10));
 		JPanel pnlSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
 
@@ -51,7 +62,10 @@ public class AddCarDialog extends JDialog implements ActionListener {
 
 		pnlSouth.add(btnSubmit);
 		pnlSouth.add(btnReset);
-		
+
+		btnSubmit.addActionListener(this);
+		btnReset.addActionListener(this);
+
 		this.add(pnlCenter);
 		this.add(pnlSouth, BorderLayout.SOUTH);
 
@@ -66,34 +80,82 @@ public class AddCarDialog extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		Object source = event.getSource();
 
-		if (source == btnSubmit){
+		if (source == btnSubmit) {
+			Vector<Exception> exceptions = new Vector<>();
 			String plateNo = null, model = null;
+			double price = 0;
+			int capacity = 0;
 
-			plateNo = Validator.validate("Plate number", txtPlateNo.getText(), true, 15);
-			Car car = new Car();
-
-			car.setPlateNo(txtPlateNo.getText());
-			car.setModel(txtModel.getText());
-			car.setPrice(Double.parseDouble(txtPrice.getText()));
-			car.setCapacity(Integer.parseInt(txtCapacity.getText()));
-			car.setAuto(chkAuto.isSelected());
-			car.setUsable(chkUsable.isSelected());
-
-			if (CarManager.addCar(car) != -1){
-				JOptionPane.showMessageDialog(this, "Car with ID " + car.getCarID() + " has been succesfully added.", "Success", JOptionPane.INFORMATION_MESSAGE);
-				reset();
-
-			} else {
-				JOptionPane.showMessageDialog(this, "Unable to add new car.", "Unsuccesful", JOptionPane.WARNING_MESSAGE);
+			try {
+				plateNo = Validator.validate("Plate number", txtPlateNo.getText(), true, 15);
+			} catch (RequiredFieldException | MaximumLengthException e) {
+				exceptions.add(e);
 			}
 
-		}else if (source == btnReset){
+			try {
+				model = Validator.validate("Model", txtModel.getText(), true, 50);
+			} catch (RequiredFieldException | MaximumLengthException e) {
+				exceptions.add(e);
+			}
+
+			try{
+				price = Validator.validate("Price", txtPrice.getText(), true, true, true, 5, 20);
+			} catch (RequiredFieldException | InvalidNumberException | MinimumNumberException | MaximumNumberException e){
+				exceptions.add(e);
+			}
+
+			try{
+				capacity = Validator.validate("Capacity", txtCapacity.getText(), true, true, true, 4, 12);
+			}catch (RequiredFieldException | InvalidNumberException | MinimumNumberException | MaximumNumberException e){
+				exceptions.add(e);
+			}
+
+			int size = exceptions.size();
+
+			if (size == 0) {
+
+				Car car = new Car();
+
+				car.setPlateNo(plateNo);
+				car.setModel(model);
+				car.setPrice(price);
+				car.setCapacity(capacity);
+				car.setAuto(chkAuto.isSelected());
+				car.setUsable(chkUsable.isSelected());
+
+				if (CarManager.addCar(car) != -1) {
+					JOptionPane.showMessageDialog(this,
+							"Car with ID " + car.getCarID() + " has been succesfully added.", "Success",
+							JOptionPane.INFORMATION_MESSAGE);
+					reset();
+
+				} else {
+					JOptionPane.showMessageDialog(this, "Unable to add new car.", "Unsuccesful",
+							JOptionPane.WARNING_MESSAGE);
+				}
+
+			} else {
+				String message = null;
+				if (size == 1) {
+					message = exceptions.firstElement().getMessage();
+				} else {
+					message = "Please fix the following errors: ";
+
+					for (int i = 0; i < size; i++) {
+						message += "\n" + (i + 1) + ". " + exceptions.get(i).getMessage();
+					}
+
+					JOptionPane.showMessageDialog(this, message, "Validation Erros", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+
+		} else if (source == btnReset) {
 			reset();
 		}
-		
+
 	}
-	
-	private void reset(){
+
+	private void reset() {
 		txtPlateNo.setText("");
 		txtModel.setText("");
 		txtPrice.setText("");
