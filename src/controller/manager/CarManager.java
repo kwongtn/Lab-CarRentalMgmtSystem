@@ -1,14 +1,37 @@
 package controller.manager;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
+
+import com.mysql.jdbc.Driver;
 
 import model.Car;
 public class CarManager{
 
 	private static Vector<Car> cars = new Vector<>();
 
-	public static int addCar(Car car){
-		return cars.add(car) ? car.getCarID() : 0;
+	public static int addCar(Car car) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCRMS_B031810219", "root", "password");
+		PreparedStatement ps = connection.prepareStatement("INSERT INTO Car(PlateNo, Model, Price, Capacity, Auto, Usable) VALUES (?,?,?,?,?,?)");
+		
+		ps.setString(1, car.getPlateNo());
+		ps.setString(2, car.getModel());
+		ps.setDouble(3, car.getPrice());
+		ps.setInt(4, car.getCapacity());
+		ps.setBoolean(5, car.isAuto());
+		ps.setBoolean(6, car.isUsable());
+
+		int status = ps.executeUpdate();
+
+		connection.close();
+
+		return status;
 	}
 
 	public static int updateCar(Car car){
@@ -45,8 +68,32 @@ public class CarManager{
 		return cars.remove(index) != null ? 1 : 0;
 	}
 
-	public static Vector<Car> getCars(){
-		return new Vector<>(cars);
+	public static Vector<Car> getCars() throws ClassNotFoundException, SQLException{
+
+		Class.forName("com.mysql.jdbc.Driver");
+
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCRMS_B031810219", "root", "password");
+		PreparedStatement ps = connection.prepareStatement("SELECT * FROM Car");
+		ResultSet rs = ps.executeQuery();
+
+		Vector<Car> cars = new Vector<>();
+
+		while(rs.next()){
+			Car car = new Car();
+
+			car.setPlateNo(rs.getString(2));
+			car.setModel(rs.getString(3));
+			car.setPrice(rs.getDouble(4));
+			car.setCapacity(rs.getInt(5));
+			car.setAuto(rs.getBoolean(6));
+			car.setUsable(rs.getBoolean(7));
+
+			cars.add(car);
+		}
+
+		connection.close();
+
+		return cars;
 	}
 	
 	public static Vector<Car> getCars(double maxPrice){

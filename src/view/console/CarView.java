@@ -1,5 +1,6 @@
 package view.console;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -49,17 +50,30 @@ public class CarView extends View {
 			System.out.println("Capacity: ");
 			car.setCapacity(scanner.nextInt());
 
-			if(CarManager.addCar(car) != 0){
-				System.out.println("Succesfull added a new car.");
-			} else {
-				System.err.println("Unable to add a new car.");
+			try {
+				if (CarManager.addCar(car) != 0) {
+					System.out.println("Succesfull added a new car.");
+				} else {
+					System.err.println("Unable to add a new car.");
+				}
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
 			}
-		} else if (choice == 4){
-			Vector<Car> cars = CarManager.getCars();
+		} else if (choice == 4) {
+			Vector<Car> cars;
+			try {
+				cars = CarManager.getCars();
+
+				for(Car car : cars) {
+					displayCar(car);
+				}
+				
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			for(Car car : cars) {
-				displayCar(car);
-			}
+			
 		}
 	}
 	

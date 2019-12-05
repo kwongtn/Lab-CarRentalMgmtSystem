@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -98,15 +99,17 @@ public class AddCarDialog extends JDialog implements ActionListener {
 				exceptions.add(e);
 			}
 
-			try{
+			try {
 				price = Validator.validate("Price", txtPrice.getText(), true, true, true, 5, 20);
-			} catch (RequiredFieldException | InvalidNumberException | MinimumNumberException | MaximumNumberException e){
+			} catch (RequiredFieldException | InvalidNumberException | MinimumNumberException
+					| MaximumNumberException e) {
 				exceptions.add(e);
 			}
 
-			try{
+			try {
 				capacity = Validator.validate("Capacity", txtCapacity.getText(), true, true, true, 4, 12);
-			}catch (RequiredFieldException | InvalidNumberException | MinimumNumberException | MaximumNumberException e){
+			} catch (RequiredFieldException | InvalidNumberException | MinimumNumberException
+					| MaximumNumberException e) {
 				exceptions.add(e);
 			}
 
@@ -123,15 +126,19 @@ public class AddCarDialog extends JDialog implements ActionListener {
 				car.setAuto(chkAuto.isSelected());
 				car.setUsable(chkUsable.isSelected());
 
-				if (CarManager.addCar(car) != -1) {
-					JOptionPane.showMessageDialog(this,
-							"Car with ID " + car.getCarID() + " has been succesfully added.", "Success",
-							JOptionPane.INFORMATION_MESSAGE);
-					reset();
+				try {
+					if (CarManager.addCar(car) != -1) {
+						JOptionPane.showMessageDialog(this,
+								"Car with ID " + car.getCarID() + " has been succesfully added.", "Success",
+								JOptionPane.INFORMATION_MESSAGE);
+						reset();
 
-				} else {
-					JOptionPane.showMessageDialog(this, "Unable to add new car.", "Unsuccesful",
-							JOptionPane.WARNING_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(this, "Unable to add new car.", "Unsuccesful",
+								JOptionPane.WARNING_MESSAGE);
+					}
+				} catch (ClassNotFoundException | SQLException e) {
+					JOptionPane.showMessageDialog(this, e.getMessage(), "Database Error", JOptionPane.WARNING_MESSAGE);
 				}
 
 			} else {
@@ -145,7 +152,7 @@ public class AddCarDialog extends JDialog implements ActionListener {
 						message += "\n" + (i + 1) + ". " + exceptions.get(i).getMessage();
 					}
 
-					JOptionPane.showMessageDialog(this, message, "Validation Erros", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(this, message, "Validation Errors", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 

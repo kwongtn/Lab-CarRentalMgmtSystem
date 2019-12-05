@@ -1,0 +1,39 @@
+CREATE TABLE Car (
+	CarID INT AUTO_INCREMENT,
+    CONSTRAINT Car_PK PRIMARY KEY (CarID),
+    PlateNo VARCHAR(15) NOT NULL,
+    CONSTRAINT Car_UQ UNIQUE (PlateNo),
+    Model VARCHAR(50) NOT NULL,
+    Price DOUBLE NOT NULL,
+    Capacity INT NOT NULL,
+    Auto BOOLEAN NOT NULL,
+    Usable BOOLEAN NOT NULL
+);
+
+CREATE TABLE Customer (
+    CustomerID INT AUTO_INCREMENT,
+    CONSTRAINT Customer_PK PRIMARY KEY (CustomerID),
+    Name VARCHAR(100) NOT NULL,
+    LicenseNo VARCHAR(10) NOT NULL,
+    CONSTRAINT Customer_UQ1 UNIQUE (LicenseNo),
+    PhoneNo VARCHAR(15) NOT NULL,
+    Verified BOOLEAN NOT NULL,
+    UserID VARCHAR(15) NOT NULL,
+    CONSTRAINT Customer_UQ2 UNIQUE (UserID),
+    Password VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE Rental (
+    RentalID INT AUTO_INCREMENT,
+    CONSTRAINT Rental_PK PRIMARY KEY (RentalID),
+    CarID INT NOT NULL,
+    CONSTRAINT Rental_Car_FK FOREIGN KEY (CarID) REFERENCES Car (CarID),
+    CustomerID INT NOT NULL,
+    CONSTRAINT Rental_Customer_FK FOREIGN KEY (CarID) REFERENCES Customer (CustomerID),
+    Start LONG NOT NULL,
+    End LONG NOT NULL,
+    ContractualDuration INT NOT NULL,
+    Total DOUBLE NOT NULL,
+    Deposit DOUBLE NOT NULL
+);
+
