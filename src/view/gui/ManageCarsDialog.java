@@ -56,6 +56,8 @@ public class ManageCarsDialog extends JDialog implements ActionListener {
 
 		if(source == btnAddCar){
 			new AddCarDialog(this);
+		} else if (source == btnViewAllCars){
+			new ViewCarsDialog(this);
 		}
 
 	}
