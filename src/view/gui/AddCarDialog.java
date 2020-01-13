@@ -42,12 +42,15 @@ public class AddCarDialog extends JDialog implements ActionListener {
 	public AddCarDialog(ManageCarsDialog dialog) {
 		super(dialog, "Add Car", true);
 
+		// Create areas using panels
 		JPanel pnlCenter = new JPanel(new GridLayout(6, 2, 10, 10));
 		JPanel pnlSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
 
+		// Define where each area is 
 		pnlCenter.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
 		pnlSouth.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 
+		// Define all the buttons and textboxes requiered
 		pnlCenter.add(new JLabel("Plate Number: ", JLabel.RIGHT));
 		pnlCenter.add(txtPlateNo);
 		pnlCenter.add(new JLabel("Model: ", JLabel.RIGHT));
@@ -64,6 +67,7 @@ public class AddCarDialog extends JDialog implements ActionListener {
 		pnlSouth.add(btnSubmit);
 		pnlSouth.add(btnReset);
 
+		// Add actions to the submit and reset button
 		btnSubmit.addActionListener(this);
 		btnReset.addActionListener(this);
 

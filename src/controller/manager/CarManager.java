@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import com.mysql.jdbc.Driver;
-
 import model.Car;
 public class CarManager{
 
